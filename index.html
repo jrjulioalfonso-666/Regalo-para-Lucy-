@@ -1,15 +1,4 @@
-index.html
-Imagen1.png
-Imagen2.png
-Imagen3.png
-Imagen4.png
-Frogtheme1.mp3
-Fanfare1.mp3
-
-
-
-
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -18,7 +7,7 @@ Fanfare1.mp3
 <style>
 body{
   margin:0;
-  background: url("pantalla.jpg") no-repeat center center fixed;
+  background: url("Imagen1.png") no-repeat center center fixed;
   background-size: cover;
   font-family: 'Arial', sans-serif;
   color:white;
@@ -83,7 +72,7 @@ body{
 }
 
 /* Botón */
-button{
+#btnSiguiente{
   padding:12px 25px;
   font-size:18px;
   border:none;
@@ -93,9 +82,10 @@ button{
   color: white;
   box-shadow: 0 0 10px pink;
   transition: transform 0.2s;
+  display:none; /* empieza oculto */
 }
 
-button:hover{
+#btnSiguiente:hover{
   transform: scale(1.1);
 }
 
@@ -165,7 +155,7 @@ button:hover{
   <img id="imagen" src="Imagen1.png">
   <div id="texto"></div>
   <br>
-  <button onclick="siguiente()">Dar click</button>
+  <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
 <!-- Sobre final -->
@@ -178,12 +168,12 @@ button:hover{
 // Textos
 let paso=0;
 let textos=[
-`Hola, señorita Lucía🌸  
+`Hola, señorita cumpleañera 🌸  
 ¿Cómo se siente cumplir 21 años? 🎉  
 
 Yo ya no me acuerdo porque tengo 91 😅  
 
-Pero... supongo que él si sabe, está más cerca tuyo! 🎂💖`, 
+Pero... adivina quién sí sabe cómo celebrar 🎂💖`, 
 
 `Una persona muy especial me contó que extraña mucho jugar contigo :'(\n  
 Y me pidió decirte que sos fuerte, valiente y que siempre luchas por tus sueños 🌟💪`,
@@ -215,18 +205,21 @@ function siguiente(){
   }
 }
 
-// Texto progresivo
+// Texto progresivo con botón "Siguiente"
 function escribirTexto(texto){
   let i=0;
   let contenedor=document.getElementById("texto");
+  let boton=document.getElementById("btnSiguiente");
   contenedor.innerHTML="";
   contenedor.classList.remove("magia");
+  boton.style.display="none"; // ocultamos el botón mientras se escribe
 
   let intervalo=setInterval(function(){
-    contenedor.innerHTML+=texto.charAt(i);
+    contenedor.innerHTML += texto.charAt(i);
     i++;
-    if(i>=texto.length){
+    if(i >= texto.length){
       clearInterval(intervalo);
+      boton.style.display = "inline-block"; // mostramos el botón al terminar
     }
   },50); // velocidad más lenta para leer
 }
@@ -273,4 +266,4 @@ function final(){
 }
 </script>
 </body>
-</html> 
+</html>
