@@ -126,16 +126,49 @@ body{
   100%{transform: translateY(100vh) translateX(50px);}
 }
 
-/* Sobre final */
+/* Carta final */
 #sobreFinal{
   display:none;
-  margin-top:100px;
+  margin-top:50px;
   animation: aparecer 2s forwards;
 }
 
 @keyframes aparecer{
   from{opacity:0; transform:scale(0);}
   to{opacity:1; transform:scale(1);}
+}
+
+#carta{
+  background: rgba(255,255,255,0.85);
+  color: #333;
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+}
+
+.imagenesCarta{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.imagenesCarta img{
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.imagenesCarta img:hover{
+  transform: scale(1.2) rotate(5deg);
 }
 </style>
 </head>
@@ -158,10 +191,17 @@ body{
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
-<!-- Sobre final -->
+<!-- Carta final con imágenes -->
 <div id="sobreFinal">
-  <h1>💌 Tienes una carta muy especial...</h1>
-  <p>Que tengas un cumpleaños lleno de magia y alegría ✨🎁</p>
+  <div id="carta">
+    <h1>💌 Tienes una carta muy especial...</h1>
+    <p>Que tengas un cumpleaños lleno de magia y alegría ✨🎁</p>
+    <div class="imagenesCarta">
+      <img src="Imagen6.png" alt="Decoración 1">
+      <img src="Imagen7.png" alt="Decoración 2">
+      <img src="Imagen8.png" alt="Decoración 3">
+    </div>
+  </div>
 </div>
 
 <script>
@@ -201,7 +241,7 @@ function siguiente(){
       cambiarMusica();
     }
   }else{
-    mostrarUltimaImagen();
+    mostrarCartaFinal();
   }
 }
 
@@ -212,16 +252,16 @@ function escribirTexto(texto){
   let boton=document.getElementById("btnSiguiente");
   contenedor.innerHTML="";
   contenedor.classList.remove("magia");
-  boton.style.display="none"; // ocultamos el botón mientras se escribe
+  boton.style.display="none";
 
   let intervalo=setInterval(function(){
     contenedor.innerHTML += texto.charAt(i);
     i++;
     if(i >= texto.length){
       clearInterval(intervalo);
-      boton.style.display = "inline-block"; // mostramos el botón al terminar
+      boton.style.display = "inline-block";
     }
-  },50); // velocidad más lenta para leer
+  },50);
 }
 
 // Efectos mágicos
@@ -252,18 +292,6 @@ function cambiarMusica(){
   musica.play();
 }
 
-// Mostrar última imagen antes del sobre
-function mostrarUltimaImagen(){
-  document.getElementById("imagen").src="Imagen4.png";
-  document.getElementById("texto").innerHTML="";
-  setTimeout(final,3000);
-}
-
-// Mostrar sobre final
-function final(){
-  document.getElementById("contenido").style.display="none";
-  document.getElementById("sobreFinal").style.display="block";
-}
-</script>
-</body>
-</html>
+// Mostrar carta final
+function mostrarCartaFinal(){
+  document.getElementById
