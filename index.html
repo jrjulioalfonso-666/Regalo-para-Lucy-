@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños ✨</title>
+<title>Feliz Cumpleaños Lukya 🎉</title>
 
 <style>
 body{
@@ -11,31 +12,30 @@ body{
   padding:0;
   background:url("pantalla.jpg") no-repeat center center fixed;
   background-size:cover;
-  font-family:Arial, sans-serif;
-  text-align:center;
+  font-family:Arial,sans-serif;
   color:white;
+  text-align:center;
   overflow-x:hidden;
 }
 
 /* CORAZÓN */
 #heartBtn{
+  position:relative;
   width:100px;
   height:90px;
   margin:150px auto;
-  position:relative;
   cursor:pointer;
   animation:latido 1.2s infinite;
 }
 #heartBtn:before,#heartBtn:after{
   content:"";
   position:absolute;
+  left:50px;
+  top:0;
   width:50px;
   height:75px;
   background:red;
   border-radius:50px 50px 0 0;
-}
-#heartBtn:before{
-  left:50px;
   transform:rotate(-45deg);
   transform-origin:0 100%;
 }
@@ -55,27 +55,40 @@ body{
 #imagen{
   width:95%;
   max-width:340px;
-  border-radius:15px;
   margin-top:20px;
+  border-radius:15px;
 }
 #texto{
   margin-top:15px;
   font-size:18px;
   min-height:120px;
-  text-shadow:0 0 10px black;
+  text-shadow:0 0 8px black;
 }
 #btnSiguiente{
-  margin-top:15px;
   padding:10px 20px;
   border:none;
   border-radius:12px;
   background:pink;
   color:white;
   display:none;
+  margin-top:15px;
 }
 
-/* HECHIZO */
-#circulo{
+/* PARTÍCULAS */
+.particula{
+  position:fixed;
+  width:8px;
+  height:8px;
+  background:gold;
+  border-radius:50%;
+  animation:caer linear forwards;
+}
+@keyframes caer{
+  to{transform:translateY(100vh);}
+}
+
+/* CÍRCULO MÁGICO */
+#circuloMagico{
   position:fixed;
   width:250px;
   height:250px;
@@ -87,7 +100,7 @@ body{
   display:none;
   box-shadow:0 0 40px gold;
 }
-#circulo:before{
+#circuloMagico:before{
   content:"";
   position:absolute;
   width:200px;
@@ -106,19 +119,8 @@ body{
   to{transform:translate(-50%,-50%) rotate(360deg);}
 }
 
-/* símbolos orbitando */
-.simbolo{
-  position:absolute;
-  font-size:20px;
-  animation:orbitar 3s linear infinite;
-}
-@keyframes orbitar{
-  from{transform:rotate(0deg) translateX(120px) rotate(0deg);}
-  to{transform:rotate(360deg) translateX(120px) rotate(-360deg);}
-}
-
 /* FUEGOS */
-.particula{
+.fuego{
   position:fixed;
   width:6px;
   height:6px;
@@ -132,45 +134,35 @@ body{
   to{opacity:0;transform:translate(var(--x),var(--y));}
 }
 
-/* SOBRE */
-#sobre{
+/* CARTA ORIGINAL */
+#sobreFinal{
   display:none;
-  margin:40px auto;
-  width:300px;
-  height:200px;
-  position:relative;
-  perspective:1000px;
+  margin-top:20px;
+  animation:aparecer 1.5s forwards;
+  padding:0 5%;
 }
-#tapa{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#ff69b4;
-  transform-origin:top;
-  transition:transform 1.5s;
-}
-#carta{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:white;
-  color:#333;
-  padding:20px;
-  box-sizing:border-box;
-  transform:translateY(100%);
-  transition:transform 1.5s;
-  overflow:auto;
-}
-.abrir #tapa{
-  transform:rotateX(-180deg);
-}
-.abrir #carta{
-  transform:translateY(0);
+@keyframes aparecer{
+  from{opacity:0;transform:scale(0);}
+  to{opacity:1;transform:scale(1);}
 }
 
-/* NOMBRE DORADO */
-.nombre{
-  font-size:22px;
+#carta{
+  background:rgba(255,255,255,0.95);
+  color:#333;
+  width:100%;
+  max-width:600px;
+  margin:0 auto;
+  padding:30px;
+  border-radius:20px;
+  border:4px dashed #ff69b4;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.nombreDorado{
+  font-size:24px;
   font-weight:bold;
   background:linear-gradient(90deg,gold,white,gold);
   background-size:200%;
@@ -183,9 +175,22 @@ body{
   to{background-position:200%;}
 }
 
+.imagenesCarta{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:15px;
+}
+.imagenesCarta img{
+  width:70px;
+  height:70px;
+  margin:5px;
+  border-radius:10px;
+}
+
 @media(max-width:480px){
   #texto{font-size:16px;}
-  #sobre{width:260px;height:180px;}
+  #carta{padding:20px;}
 }
 </style>
 </head>
@@ -193,10 +198,6 @@ body{
 
 <audio id="musica" loop>
 <source src="Frogtheme1.mp3" type="audio/mp3">
-</audio>
-
-<audio id="hechizoSonido">
-<source src="Fanfare1.mp3" type="audio/mp3">
 </audio>
 
 <div id="heartBtn" onclick="iniciar()"></div>
@@ -207,15 +208,30 @@ body{
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
-<div id="circulo"></div>
+<div id="circuloMagico"></div>
 
-<div id="sobre">
-  <div id="tapa"></div>
+<div id="sobreFinal">
   <div id="carta">
-    <p class="nombre">Lukya 💖</p>
-    <p>Hoy cumple años la persona más importante de mi vida.</p>
-    <p>Mi amiga, mi confidente, mi todo.</p>
-    <p>Gracias por existir ✨</p>
+    <h1 class="nombreDorado">💌 Lukya paws...</h1>
+
+    <p>Hoy es un día súper especial y cómo no va a serlo, si cumple años</p>
+    <p>la persona más importante de mi vida.</p>
+
+    <p>Mi Amiguita, mi confidente, mi ídola y mi fan, mi hermanita, mi patrona, mi TODO 💖</p>
+
+    <p>Gracias por aguantarme todos los días, gracias por ser todo lo que nunca encontré en nadie más.</p>
+
+    <p>Sin duda alguna puedo decirte que para mí, no hay compañía que pueda suplir la tuya.</p>
+
+    <p>Pasar tiempo contigo es realmente maravilloso.</p>
+
+    <p>Que tengas un cumpleaños lleno de magia y alegría. ✨🎁</p>
+
+    <div class="imagenesCarta">
+      <img src="Imagen6.jpg">
+      <img src="Imagen5.png">
+      <img src="Imagen7.webp">
+    </div>
   </div>
 </div>
 
@@ -223,10 +239,11 @@ body{
 let paso=0;
 
 let textos=[
-"Hola señorita cumpleañera 🌸",
-"Eres fuerte, brillante y maravillosa ✨",
-"Soy un poderoso mago 🧙‍♂️",
-"Y ahora... activaré el hechizo supremo 🔮"
+`Hola, señorita cumpleañera 🌸 ¿Cómo se siente cumplir 21 años? 🎉`,
+`Una persona muy especial me contó que eres fuerte y valiente 💪✨`,
+`Soy un poderoso mago 🧙‍♂️ y estoy a punto de lanzar un hechizo mágico ✨`,
+`Prepárate... porque aquí viene la magia... 🔮`,
+`Antes de abrir tu carta final... mira esto 😌💖`
 ];
 
 function iniciar(){
@@ -243,7 +260,7 @@ document.getElementById("imagen").src="Imagen"+(paso+1)+".png";
 escribir(textos[paso]);
 if(paso==2){activarHechizo();}
 }else{
-mostrarCarta();
+mostrarCartaFinal();
 }
 }
 
@@ -264,34 +281,27 @@ btn.style.display="inline-block";
 }
 
 function activarHechizo(){
-let circulo=document.getElementById("circulo");
+let circulo=document.getElementById("circuloMagico");
 circulo.style.display="block";
 circulo.classList.add("girar");
 
-document.getElementById("musica").pause();
-document.getElementById("hechizoSonido").play();
-
-for(let i=0;i<25;i++){
-let p=document.createElement("div");
-p.className="particula";
-p.style.left="50%";
-p.style.top="50%";
-p.style.setProperty("--x",(Math.random()*300-150)+"px");
-p.style.setProperty("--y",(Math.random()*300-150)+"px");
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),1000);
+for(let i=0;i<30;i++){
+let f=document.createElement("div");
+f.className="fuego";
+f.style.left="50%";
+f.style.top="50%";
+f.style.setProperty("--x",(Math.random()*300-150)+"px");
+f.style.setProperty("--y",(Math.random()*300-150)+"px");
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
 }
 
-setTimeout(()=>{
-circulo.style.display="none";
-},3000);
+setTimeout(()=>circulo.style.display="none",3000);
 }
 
-function mostrarCarta(){
+function mostrarCartaFinal(){
 document.getElementById("contenido").style.display="none";
-let sobre=document.getElementById("sobre");
-sobre.style.display="block";
-setTimeout(()=>sobre.classList.add("abrir"),500);
+document.getElementById("sobreFinal").style.display="block";
 }
 </script>
 
