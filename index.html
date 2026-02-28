@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños Luky 🎉</title>
+<title>Feliz Cumpleaños Lukya 🎉</title>
 
 <style>
 body{
@@ -15,6 +15,12 @@ body{
   color:white;
   text-align:center;
   overflow-x:hidden;
+  transition:filter 0.8s ease;
+}
+
+/* OSCURECER PANTALLA */
+.oscuro{
+  filter:brightness(0.4);
 }
 
 /* CORAZÓN */
@@ -56,6 +62,11 @@ body{
   max-width:340px;
   margin-top:20px;
   border-radius:15px;
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.fade{
+  opacity:0;
+  transform:scale(0.95);
 }
 #texto{
   margin-top:15px;
@@ -73,22 +84,7 @@ body{
   margin-top:15px;
 }
 
-/* PARTÍCULAS CAÍDA */
-.particula{
-  position:fixed;
-  width:8px;
-  height:8px;
-  background:gold;
-  border-radius:50%;
-  opacity:0.8;
-  animation:caer linear forwards;
-}
-@keyframes caer{
-  from{transform:translateY(-10px);}
-  to{transform:translateY(100vh);}
-}
-
-/* CÍRCULO MÁGICO MEJORADO */
+/* CÍRCULO MÁGICO */
 #circuloMagico{
   position:fixed;
   width:260px;
@@ -100,6 +96,12 @@ body{
   transform:translate(-50%,-50%);
   display:none;
   box-shadow:0 0 40px gold, 0 0 80px rgba(255,215,0,0.7);
+  animation:pulso 2s infinite alternate;
+}
+
+@keyframes pulso{
+  from{box-shadow:0 0 20px gold;}
+  to{box-shadow:0 0 80px gold;}
 }
 
 /* RUNAS */
@@ -111,7 +113,6 @@ body{
   left:50%;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  pointer-events:none;
   font-size:20px;
   color:white;
   text-shadow:0 0 10px gold, 0 0 20px gold;
@@ -122,21 +123,12 @@ body{
 }
 
 .runaTexto{
-  position:absolute;
   animation:giroRunas 8s linear infinite;
 }
 
 @keyframes giroRunas{
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
-}
-
-.girar{
-  animation:giro 4s linear infinite;
-}
-@keyframes giro{
-  from{transform:translate(-50%,-50%) rotate(0);}
-  to{transform:translate(-50%,-50%) rotate(360deg);}
 }
 
 /* FUEGOS */
@@ -147,7 +139,7 @@ body{
   border-radius:50%;
   background:gold;
   pointer-events:none;
-  animation:explosion 1s forwards;
+  animation:explosion 1.2s forwards;
 }
 @keyframes explosion{
   from{opacity:1;transform:translate(0,0);}
@@ -200,7 +192,6 @@ body{
   transform:translateY(0);
 }
 
-/* NOMBRE DORADO */
 .nombreDorado{
   font-size:24px;
   font-weight:bold;
@@ -227,11 +218,6 @@ body{
   margin:5px;
   border-radius:10px;
 }
-
-@media(max-width:480px){
-  #texto{font-size:16px;}
-  #carta{padding:20px;}
-}
 </style>
 </head>
 <body>
@@ -257,23 +243,16 @@ body{
 <div id="sobreFinal">
   <div id="sobre">
     <div id="tapa"></div>
-
     <div id="carta">
       <h1 class="nombreDorado">💌 Lukya paws...</h1>
-
       <p>Hoy es un día súper especial y cómo no va a serlo, si cumple años</p>
       <p>la persona más importante de mi vida.</p>
-
       <p>Mi Amiguita, mi confidente, mi ídola y mi fan, mi hermanita, mi patrona, mi TODO 💖</p>
-
       <p>Gracias por aguantarme todos los días, gracias por ser todo lo que nunca encontré en nadie más.</p>
-
       <p>Sin duda alguna puedo decirte que para mí, no hay compañía que pueda suplir la tuya.</p>
       <p>Pasar tiempo contigo es realmente maravilloso.</p>
-
       <p>Que tengas un cumpleaños lleno de magia y alegría. </p>
       <p>Te quiero mucho. mi veterinaria favorita 🐾🐾🤍</p>
-
       <div class="imagenesCarta">
         <img src="Imagen6.jpg">
         <img src="Imagen5.png">
@@ -305,9 +284,13 @@ escribir(textos[0]);
 function siguiente(){
 paso++;
 if(paso<textos.length){
-document.getElementById("imagen").src="Imagen"+(paso+1)+".png";
+let img=document.getElementById("imagen");
+img.classList.add("fade");
+setTimeout(()=>{
+img.src="Imagen"+(paso+1)+".png";
+img.classList.remove("fade");
+},300);
 escribir(textos[paso]);
-if(paso==2){activarHechizo();}
 }else{
 mostrarCartaFinal();
 }
@@ -319,12 +302,25 @@ let cont=document.getElementById("texto");
 let btn=document.getElementById("btnSiguiente");
 cont.innerHTML="";
 btn.style.display="none";
+
 let inter=setInterval(()=>{
 cont.innerHTML+=t.charAt(i);
 i++;
 if(i>=t.length){
 clearInterval(inter);
 btn.style.display="inline-block";
+
+/* ACTIVAR MAGIA EXACTAMENTE EN PREPÁRATE */
+if(paso==4){
+setTimeout(()=>{
+document.body.classList.add("oscuro");
+activarHechizo();
+setTimeout(()=>{
+document.body.classList.remove("oscuro");
+},4000);
+},800);
+}
+
 }
 },40);
 }
@@ -332,17 +328,16 @@ btn.style.display="inline-block";
 function activarHechizo(){
 let circulo=document.getElementById("circuloMagico");
 circulo.style.display="block";
-circulo.classList.add("girar");
 
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
 let f=document.createElement("div");
 f.className="fuego";
 f.style.left="50%";
 f.style.top="50%";
-f.style.setProperty("--x",(Math.random()*400-200)+"px");
-f.style.setProperty("--y",(Math.random()*400-200)+"px");
+f.style.setProperty("--x",(Math.random()*500-250)+"px");
+f.style.setProperty("--y",(Math.random()*500-250)+"px");
 document.body.appendChild(f);
-setTimeout(()=>f.remove(),1000);
+setTimeout(()=>f.remove(),1200);
 }
 
 setTimeout(()=>circulo.style.display="none",4000);
