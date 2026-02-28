@@ -20,7 +20,7 @@ body{
 
 /* OSCURECER PANTALLA */
 .oscuro{
-  filter:brightness(0.4);
+  filter:brightness(0.5);
 }
 
 /* CORAZÓN */
@@ -68,6 +68,15 @@ body{
   opacity:0;
   transform:scale(0.95);
 }
+.movimiento{
+  animation:movimiento 0.5s ease infinite alternate;
+}
+@keyframes movimiento{
+  0%{transform:translateY(0px);}
+  50%{transform:translateY(-15px);}
+  100%{transform:translateY(0px);}
+}
+
 #texto{
   margin-top:15px;
   font-size:18px;
@@ -82,69 +91,6 @@ body{
   color:white;
   display:none;
   margin-top:15px;
-}
-
-/* CÍRCULO MÁGICO */
-#circuloMagico{
-  position:fixed;
-  width:260px;
-  height:260px;
-  border:4px solid #00BFFF; /* azul */
-  border-radius:50%;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  display:none;
-  box-shadow:0 0 40px #00BFFF, 0 0 80px rgba(0,191,255,0.7);
-  animation:pulso 2s infinite alternate;
-  z-index:999;
-}
-
-@keyframes pulso{
-  from{box-shadow:0 0 20px #00BFFF;}
-  to{box-shadow:0 0 80px #00BFFF;}
-}
-
-/* RUNAS */
-#runas{
-  position:absolute;
-  width:320px;
-  height:320px;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  font-size:20px;
-  color:gold;
-  text-shadow:0 0 10px gold, 0 0 20px gold;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  letter-spacing:10px;
-}
-
-.runaTexto{
-  animation:giroRunas 4s linear infinite;
-}
-
-@keyframes giroRunas{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-
-/* FUEGOS ARTIFICIALES */
-.fuego{
-  position:absolute; /* cambiado de fixed a absolute para que aparezca dentro del body */
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:gold;
-  pointer-events:none;
-  animation:explosion 1.5s forwards;
-}
-@keyframes explosion{
-  from{opacity:1;transform:translate(0,0);}
-  to{opacity:0;transform:translate(var(--x),var(--y));}
 }
 
 /* SOBRE */
@@ -235,12 +181,6 @@ body{
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
-<div id="circuloMagico">
-  <div id="runas">
-    <div class="runaTexto">✶ ᚠ ᚢ ᚦ ᚨ ᚱ ✶ ᚷ ᚹ ᚺ ᚾ ✶ ᛁ ᛃ ᛇ ✶</div>
-  </div>
-</div>
-
 <div id="sobreFinal">
   <div id="sobre">
     <div id="tapa"></div>
@@ -276,81 +216,61 @@ let textos=[
 ];
 
 function iniciar(){
-document.getElementById("heartBtn").style.display="none";
-document.getElementById("contenido").style.display="block";
-document.getElementById("musica").play();
-escribir(textos[0]);
+  document.getElementById("heartBtn").style.display="none";
+  document.getElementById("contenido").style.display="block";
+  document.getElementById("musica").play();
+  escribir(textos[0]);
 }
 
 function siguiente(){
-paso++;
-if(paso<textos.length){
-let img=document.getElementById("imagen");
-img.classList.add("fade");
-setTimeout(()=>{
-img.src="Imagen"+(paso+1)+".png";
-img.classList.remove("fade");
-},300);
-escribir(textos[paso]);
-}else{
-mostrarCartaFinal();
-}
+  paso++;
+  if(paso<textos.length){
+    let img=document.getElementById("imagen");
+    img.classList.add("fade");
+    setTimeout(()=>{
+      img.src="Imagen"+(paso+1)+".png";
+      img.classList.remove("fade");
+    },300);
+    escribir(textos[paso]);
+  }else{
+    mostrarCartaFinal();
+  }
 }
 
 function escribir(t){
-let i=0;
-let cont=document.getElementById("texto");
-let btn=document.getElementById("btnSiguiente");
-cont.innerHTML="";
-btn.style.display="none";
+  let i=0;
+  let cont=document.getElementById("texto");
+  let btn=document.getElementById("btnSiguiente");
+  cont.innerHTML="";
+  btn.style.display="none";
 
-let inter=setInterval(()=>{
-cont.innerHTML+=t.charAt(i);
-i++;
-if(i>=t.length){
-clearInterval(inter);
-btn.style.display="inline-block";
+  let inter=setInterval(()=>{
+    cont.innerHTML+=t.charAt(i);
+    i++;
+    if(i>=t.length){
+      clearInterval(inter);
+      btn.style.display="inline-block";
 
-/* ACTIVAR MAGIA EXACTAMENTE EN PREPÁRATE */
-if(paso==4){
-setTimeout(()=>{
-document.body.classList.add("oscuro");
-activarHechizo();
-setTimeout(()=>{
-document.body.classList.remove("oscuro");
-},4000);
-},800);
-}
-
-}
-},40);
-}
-
-function activarHechizo(){
-let circulo=document.getElementById("circuloMagico");
-circulo.style.display="block";
-
-/* FUEGOS ARTIFICIALES */
-for(let i=0;i<50;i++){
-let f=document.createElement("div");
-f.className="fuego";
-f.style.left=(window.innerWidth/2)+"px";
-f.style.top=(window.innerHeight/2)+"px";
-f.style.setProperty("--x",(Math.random()*500-250)+"px");
-f.style.setProperty("--y",(Math.random()*500-250)+"px");
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),1500);
-}
-
-setTimeout(()=>circulo.style.display="none",4000);
+      /* MAGIA SIMPLIFICADA: OSCURECER + MOVIMIENTO */
+      if(paso==4){
+        let img=document.getElementById("imagen");
+        document.body.classList.add("oscuro");
+        img.classList.add("movimiento");
+        setTimeout(()=>{
+          document.body.classList.remove("oscuro");
+          img.classList.remove("movimiento");
+        },4000);
+      }
+    }
+  },40);
 }
 
 function mostrarCartaFinal(){
-document.getElementById("contenido").style.display="none";
-let sobreFinal=document.getElementById("sobreFinal");
-let sobre=document.getElementById("sobre");
-sobreFinal.style.display="block";
-setTimeout(()=>sobre.classList.add("abrir"),500);
+  document.getElementById("contenido").style.display="none";
+  let sobreFinal=document.getElementById("sobreFinal");
+  let sobre=document.getElementById("sobre");
+  sobreFinal.style.display="block";
+  setTimeout(()=>sobre.classList.add("abrir"),500);
 }
 </script>
 
