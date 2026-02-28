@@ -3,25 +3,28 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feliz Cumpleaños 🎉</title>
 
 <style>
+/* ===== Estilos generales ===== */
 body{
   margin:0;
-  background: url("pantalla.png") no-repeat center center fixed;
+  padding:0;
+  background: url("pantalla.jpg") no-repeat center center fixed;
   background-size: cover;
   font-family: 'Arial', sans-serif;
   color:white;
   text-align:center;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
-/* Corazón animado */
+/* ===== Corazón animado ===== */
 #heartBtn{
   position:relative;
-  width:120px;
-  height:110px;
-  margin:200px auto;
+  width:100px;
+  height:90px;
+  margin:150px auto;
   cursor:pointer;
   animation: latido 1.2s infinite;
 }
@@ -30,10 +33,10 @@ body{
 #heartBtn:after{
   content:"";
   position:absolute;
-  left:60px;
+  left:50px;
   top:0;
-  width:60px;
-  height:90px;
+  width:50px;
+  height:75px;
   background:red;
   border-radius:50px 50px 0 0;
   transform:rotate(-45deg);
@@ -52,30 +55,33 @@ body{
   100%{transform:scale(1);}
 }
 
-/* Contenedor principal */
+/* ===== Contenedor principal ===== */
 #contenido{
   display:none;
-  margin-top:40px;
+  margin-top:20px;
+  padding:0 10px;
 }
 
 #imagen{
-  width:280px;
+  width:80%;
+  max-width:300px;
   margin-bottom:20px;
   transition: transform 1s;
+  border-radius:15px;
 }
 
 #texto{
-  width:85%;
-  margin:auto;
-  font-size:20px;
+  width:100%;
+  font-size:18px;
   min-height:120px;
   text-shadow:0 0 8px black;
+  margin:auto;
 }
 
-/* Botón */
+/* ===== Botón ===== */
 #btnSiguiente{
-  padding:12px 25px;
-  font-size:18px;
+  padding:10px 20px;
+  font-size:16px;
   border:none;
   border-radius:12px;
   cursor:pointer;
@@ -84,13 +90,14 @@ body{
   box-shadow: 0 0 10px pink;
   transition: transform 0.2s;
   display:none;
+  margin-top:15px;
 }
 
 #btnSiguiente:hover{
   transform: scale(1.1);
 }
 
-/* Efectos mágicos */
+/* ===== Efectos mágicos ===== */
 .magia{
   animation: brillo 1s infinite alternate;
 }
@@ -100,7 +107,7 @@ body{
   to{ text-shadow: 0 0 25px white;}
 }
 
-/* Destellos y partículas */
+/* ===== Destellos y partículas ===== */
 #particulas{
   position:fixed;
   top:0;
@@ -114,8 +121,8 @@ body{
 
 .particula{
   position:absolute;
-  width:10px;
-  height:10px;
+  width:8px;
+  height:8px;
   background: gold;
   border-radius:50%;
   opacity:0.8;
@@ -124,15 +131,16 @@ body{
 
 @keyframes caer{
   0%{transform: translateY(0) translateX(0);}
-  100%{transform: translateY(100vh) translateX(50px);}
+  100%{transform: translateY(100vh) translateX(30px);}
 }
 
-/* Carta final con marco */
+/* ===== Carta final con marco ===== */
 #sobreFinal{
   display:none;
-  margin-top:50px;
+  margin-top:30px;
   animation: aparecer 2s forwards;
   position: relative;
+  padding:0 10px;
 }
 
 @keyframes aparecer{
@@ -143,31 +151,32 @@ body{
 #carta{
   background: rgba(255,255,255,0.95);
   color: #333;
-  width: 80%;
-  max-width: 650px;
+  width: 100%;
+  max-width: 550px;
   margin: 0 auto;
-  padding: 40px;
-  border-radius: 25px;
-  border: 5px dashed #ff69b4; /* marco decorativo */
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  padding: 30px;
+  border-radius: 20px;
+  border: 4px dashed #ff69b4;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
   text-align: center;
   position: relative;
   overflow: hidden;
-  font-family: 'Arial', sans-serif;
 }
 
 /* Imágenes dentro de la carta */
 .imagenesCarta{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .imagenesCarta img{
-  width: 90px;
-  height: 90px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  width:70px;
+  height:70px;
+  margin:5px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
   transition: transform 0.3s;
 }
 
@@ -178,8 +187,8 @@ body{
 /* Globos flotantes */
 .globo{
   position: absolute;
-  width: 50px;
-  height: 70px;
+  width: 40px;
+  height: 60px;
   background: radial-gradient(circle at 30% 30%, #ff5f5f, #ff0000);
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   animation: flotar linear infinite;
@@ -187,7 +196,28 @@ body{
 
 @keyframes flotar{
   0%{transform: translateY(100vh) translateX(0);}
-  100%{transform: translateY(-100px) translateX(50px);}
+  100%{transform: translateY(-100px) translateX(30px);}
+}
+
+/* ===== Ajustes para móviles ===== */
+@media (max-width:480px){
+  #texto{
+    font-size:16px;
+  }
+  #btnSiguiente{
+    font-size:14px;
+    padding:8px 16px;
+  }
+  #carta{
+    padding:20px;
+  }
+  .imagenesCarta img{
+    width:60px;
+    height:60px;
+  }
+  #imagen{
+    width:90%;
+  }
 }
 </style>
 </head>
@@ -206,7 +236,6 @@ body{
   <div id="particulas"></div>
   <img id="imagen" src="Imagen1.png">
   <div id="texto"></div>
-  <br>
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
@@ -221,8 +250,8 @@ body{
       <img src="Imagen8.png" alt="Decoración 3">
     </div>
     <!-- Globos -->
-    <div class="globo" style="left:10%; animation-duration: 8s;"></div>
-    <div class="globo" style="left:30%; animation-duration: 10s;"></div>
+    <div class="globo" style="left:5%; animation-duration: 8s;"></div>
+    <div class="globo" style="left:25%; animation-duration: 10s;"></div>
     <div class="globo" style="left:50%; animation-duration: 9s;"></div>
     <div class="globo" style="left:70%; animation-duration: 12s;"></div>
     <div class="globo" style="left:90%; animation-duration: 11s;"></div>
@@ -270,7 +299,7 @@ function siguiente(){
   }
 }
 
-// Texto progresivo con botón
+// Texto progresivo
 function escribirTexto(texto){
   let i=0;
   let contenedor=document.getElementById("texto");
@@ -310,7 +339,7 @@ function crearParticulas(cantidad){
   }
 }
 
-// Cambiar música a fanfare
+// Cambiar música
 function cambiarMusica(){
   let musica=document.getElementById("musica");
   musica.src="Fanfare1.mp3";
