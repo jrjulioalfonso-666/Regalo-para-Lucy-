@@ -88,30 +88,49 @@ body{
   to{transform:translateY(100vh);}
 }
 
-/* CÍRCULO MÁGICO */
+/* CÍRCULO MÁGICO MEJORADO */
 #circuloMagico{
   position:fixed;
-  width:250px;
-  height:250px;
-  border:3px solid gold;
+  width:260px;
+  height:260px;
+  border:4px solid gold;
   border-radius:50%;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   display:none;
-  box-shadow:0 0 40px gold;
+  box-shadow:0 0 40px gold, 0 0 80px rgba(255,215,0,0.7);
 }
-#circuloMagico:before{
-  content:"";
+
+/* RUNAS */
+#runas{
   position:absolute;
-  width:200px;
-  height:200px;
-  border:2px dashed white;
-  border-radius:50%;
+  width:320px;
+  height:320px;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
+  border-radius:50%;
+  pointer-events:none;
+  font-size:20px;
+  color:white;
+  text-shadow:0 0 10px gold, 0 0 20px gold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  letter-spacing:10px;
 }
+
+.runaTexto{
+  position:absolute;
+  animation:giroRunas 8s linear infinite;
+}
+
+@keyframes giroRunas{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
 .girar{
   animation:giro 4s linear infinite;
 }
@@ -229,7 +248,11 @@ body{
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
-<div id="circuloMagico"></div>
+<div id="circuloMagico">
+  <div id="runas">
+    <div class="runaTexto">✶ ᚠ ᚢ ᚦ ᚨ ᚱ ✶ ᚷ ᚹ ᚺ ᚾ ✶ ᛁ ᛃ ᛇ ✶</div>
+  </div>
+</div>
 
 <div id="sobreFinal">
   <div id="sobre">
@@ -266,7 +289,7 @@ let paso=0;
 let textos=[
 `Hola, señorita cumpleañera 🌸 ¿Cómo se siente cumplir 21 años? yo ya ni me acuerdo. (tengo 91)🎉`,
 `Pero hay una personita muy especial que sí está más cerca tuyo. me contó que eres  una chica muy fuerte, valiente y súper estudiosa!💪✨`,
-`Por si no sabías, soy un poderoso mago 🧙‍♂️ y también estudio muchísimo.`
+`Por si no sabías, soy un poderoso mago 🧙‍♂️ y también estudio muchísimo.`,
 `estoy a punto de lanzar un hechizo mágico para que tengas un cumpleaños mágico✨ y te llenes de regalos🎁💝`,
 `Prepárate... porque aquí viene la magia... 🔮`,
 `Ahh.. pero antes... por favor mira esto. 😌💖`
@@ -311,18 +334,18 @@ let circulo=document.getElementById("circuloMagico");
 circulo.style.display="block";
 circulo.classList.add("girar");
 
-for(let i=0;i<30;i++){
+for(let i=0;i<40;i++){
 let f=document.createElement("div");
 f.className="fuego";
 f.style.left="50%";
 f.style.top="50%";
-f.style.setProperty("--x",(Math.random()*300-150)+"px");
-f.style.setProperty("--y",(Math.random()*300-150)+"px");
+f.style.setProperty("--x",(Math.random()*400-200)+"px");
+f.style.setProperty("--y",(Math.random()*400-200)+"px");
 document.body.appendChild(f);
 setTimeout(()=>f.remove(),1000);
 }
 
-setTimeout(()=>circulo.style.display="none",3000);
+setTimeout(()=>circulo.style.display="none",4000);
 }
 
 function mostrarCartaFinal(){
