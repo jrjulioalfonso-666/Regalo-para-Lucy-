@@ -3,374 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Cumpleaños 🎉</title>
+<title>Feliz Cumpleaños ✨</title>
 
 <style>
 body{
   margin:0;
   padding:0;
-  background: url("pantalla.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font-family: 'Arial', sans-serif;
-  color:white;
+  background:url("pantalla.jpg") no-repeat center center fixed;
+  background-size:cover;
+  font-family:Arial, sans-serif;
   text-align:center;
+  color:white;
   overflow-x:hidden;
 }
 
-/* Corazón inicial animado */
+/* CORAZÓN */
 #heartBtn{
-  position:relative;
   width:100px;
   height:90px;
   margin:150px auto;
+  position:relative;
   cursor:pointer;
-  animation: latido 1.2s infinite;
+  animation:latido 1.2s infinite;
 }
-
-#heartBtn:before,
-#heartBtn:after{
+#heartBtn:before,#heartBtn:after{
   content:"";
   position:absolute;
-  left:50px;
-  top:0;
   width:50px;
   height:75px;
   background:red;
   border-radius:50px 50px 0 0;
+}
+#heartBtn:before{
+  left:50px;
   transform:rotate(-45deg);
   transform-origin:0 100%;
 }
-
 #heartBtn:after{
   left:0;
   transform:rotate(45deg);
   transform-origin:100% 100%;
 }
-
 @keyframes latido{
   0%{transform:scale(1);}
   50%{transform:scale(1.15);}
   100%{transform:scale(1);}
 }
 
-/* Contenedor principal */
-#contenido{
-  display:none;
-  margin-top:20px;
-  padding:0 5%;
-}
-
+/* CONTENIDO */
+#contenido{display:none;padding:0 6%;}
 #imagen{
-  width:90%;
-  max-width:320px;
-  margin-bottom:15px;
-  transition: transform 1s;
+  width:95%;
+  max-width:340px;
   border-radius:15px;
+  margin-top:20px;
 }
-
 #texto{
-  width:100%;
+  margin-top:15px;
   font-size:18px;
   min-height:120px;
-  text-shadow:0 0 8px black;
-  margin:auto;
+  text-shadow:0 0 10px black;
 }
-
-/* Botón siguiente */
 #btnSiguiente{
+  margin-top:15px;
   padding:10px 20px;
-  font-size:16px;
   border:none;
   border-radius:12px;
-  cursor:pointer;
-  background: pink;
+  background:pink;
   color:white;
-  box-shadow: 0 0 10px pink;
-  transition: transform 0.2s;
   display:none;
-  margin-top:10px;
 }
 
-#btnSiguiente:hover{
-  transform: scale(1.1);
-}
-
-/* Efectos mágicos */
-.magia{
-  animation: brillo 1s infinite alternate;
-}
-
-@keyframes brillo{
-  from{ text-shadow: 0 0 10px gold;}
-  to{ text-shadow: 0 0 25px white;}
-}
-
-/* Partículas doradas */
-#particulas{
+/* HECHIZO */
+#circulo{
   position:fixed;
-  top:0;
-  left:0;
+  width:250px;
+  height:250px;
+  border:3px solid gold;
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display:none;
+  box-shadow:0 0 40px gold;
+}
+#circulo:before{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  border:2px dashed white;
+  border-radius:50%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.girar{
+  animation:giro 4s linear infinite;
+}
+@keyframes giro{
+  from{transform:translate(-50%,-50%) rotate(0);}
+  to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+/* símbolos orbitando */
+.simbolo{
+  position:absolute;
+  font-size:20px;
+  animation:orbitar 3s linear infinite;
+}
+@keyframes orbitar{
+  from{transform:rotate(0deg) translateX(120px) rotate(0deg);}
+  to{transform:rotate(360deg) translateX(120px) rotate(-360deg);}
+}
+
+/* FUEGOS */
+.particula{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:gold;
+  pointer-events:none;
+  animation:explosion 1s forwards;
+}
+@keyframes explosion{
+  from{opacity:1;transform:translate(0,0);}
+  to{opacity:0;transform:translate(var(--x),var(--y));}
+}
+
+/* SOBRE */
+#sobre{
+  display:none;
+  margin:40px auto;
+  width:300px;
+  height:200px;
+  position:relative;
+  perspective:1000px;
+}
+#tapa{
+  position:absolute;
   width:100%;
   height:100%;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:10;
+  background:#ff69b4;
+  transform-origin:top;
+  transition:transform 1.5s;
 }
-
-.particula{
-  position:absolute;
-  width:8px;
-  height:8px;
-  background: gold;
-  border-radius:50%;
-  opacity:0.8;
-  animation: caer linear infinite;
-}
-
-@keyframes caer{
-  0%{transform: translateY(0) translateX(0);}
-  100%{transform: translateY(100vh) translateX(30px);}
-}
-
-/* Carta final */
-#sobreFinal{
-  display:none;
-  margin-top:20px;
-  animation: aparecer 2s forwards;
-  position: relative;
-  padding:0 5%;
-}
-
-@keyframes aparecer{
-  from{opacity:0; transform:scale(0);}
-  to{opacity:1; transform:scale(1);}
-}
-
 #carta{
-  background: rgba(255,255,255,0.95);
-  color: #333;
-  width:100%;
-  max-width:600px;
-  margin:0 auto;
-  padding:30px;
-  border-radius:20px;
-  border: 4px dashed #ff69b4;
-  box-shadow:0 0 20px rgba(0,0,0,0.5);
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  font-family:'Arial', sans-serif;
-}
-
-/* Imágenes dentro de la carta */
-.imagenesCarta{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content: center;
-  margin-top:15px;
-}
-
-.imagenesCarta img{
-  width:70px;
-  height:70px;
-  margin:5px;
-  border-radius:10px;
-  box-shadow:0 0 8px rgba(0,0,0,0.3);
-  transition: transform 0.3s;
-}
-
-.imagenesCarta img:hover{
-  transform: scale(1.2) rotate(5deg);
-}
-
-/* Globos aleatorios */
-.globo{
   position:absolute;
-  width:40px;
-  height:60px;
-  background: radial-gradient(circle at 30% 30%, #ff5f5f, #ff0000);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  animation: flotar linear infinite;
+  width:100%;
+  height:100%;
+  background:white;
+  color:#333;
+  padding:20px;
+  box-sizing:border-box;
+  transform:translateY(100%);
+  transition:transform 1.5s;
+  overflow:auto;
+}
+.abrir #tapa{
+  transform:rotateX(-180deg);
+}
+.abrir #carta{
+  transform:translateY(0);
 }
 
-@keyframes flotar{
-  0%{transform: translateY(100vh) translateX(0);}
-  100%{transform: translateY(-100px) translateX(var(--x,30px));}
+/* NOMBRE DORADO */
+.nombre{
+  font-size:22px;
+  font-weight:bold;
+  background:linear-gradient(90deg,gold,white,gold);
+  background-size:200%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:brilloNombre 3s linear infinite;
+}
+@keyframes brilloNombre{
+  from{background-position:0%;}
+  to{background-position:200%;}
 }
 
-/* Ajustes para pantallas pequeñas */
 @media(max-width:480px){
-  #texto{
-    font-size:16px;
-  }
-  #btnSiguiente{
-    font-size:14px;
-    padding:8px 16px;
-  }
-  #carta{
-    padding:20px;
-  }
-  .imagenesCarta img{
-    width:60px;
-    height:60px;
-  }
-  #imagen{
-    width:95%;
-  }
+  #texto{font-size:16px;}
+  #sobre{width:260px;height:180px;}
 }
 </style>
 </head>
 <body>
 
-<!-- Música -->
 <audio id="musica" loop>
-  <source src="Frogtheme1.mp3" type="audio/mp3">
+<source src="Frogtheme1.mp3" type="audio/mp3">
 </audio>
 
-<!-- Corazón inicial -->
+<audio id="hechizoSonido">
+<source src="Fanfare1.mp3" type="audio/mp3">
+</audio>
+
 <div id="heartBtn" onclick="iniciar()"></div>
 
-<!-- Contenido principal -->
 <div id="contenido">
-  <div id="particulas"></div>
   <img id="imagen" src="Imagen1.png">
   <div id="texto"></div>
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
-<!-- Carta final -->
-<div id="sobreFinal">
+<div id="circulo"></div>
+
+<div id="sobre">
+  <div id="tapa"></div>
   <div id="carta">
-    <h1>💌 Lukya paws...</h1>
-    <p>Hoy es un día súper especial y cómo no va a serlo, si cumple años</p>
-    <p>la persona más importante de mi vida.
-    <p> Mi Amiguita,mi confidente, mi ídola y mi fan, mi hermanita, mi patrona, mi TODO
-    <p> 
-    <p> Gracias por aguantarme todos los días, gracias por ser todo lo que nunca encontré
-    <p> en nadie más.</p>
-    <p>  </p>
-    <p> Sin duda alguna puedo decirte que para mí, no hay compañía que pueda suplir la tuya</p>
-    <p> Pasar tiempo contigo es realmente maravilloso.  </p>
-                   <p>Que tengas un cumpleaños lleno de magia y alegría. ✨🎁</p>
-    <div class="imagenesCarta">
-      <img src="Imagen6.jpg" alt="Imagen6.jpg">
-      <img src="Imagen5.png" alt="Imagen5.png">
-      <img src="Imagen7.webp" alt="Imagen7.webp">
-    </div>
+    <p class="nombre">Lukya 💖</p>
+    <p>Hoy cumple años la persona más importante de mi vida.</p>
+    <p>Mi amiga, mi confidente, mi todo.</p>
+    <p>Gracias por existir ✨</p>
   </div>
 </div>
 
 <script>
-// Textos
 let paso=0;
+
 let textos=[
-`Hola, señorita cumpleañera 🌸  
-¿Cómo se siente cumplir 21 años? 🎉  
-
-Yo ya no me acuerdo porque tengo 91 😅  
-
-Pero... adivina quién sí sabe cómo celebrar 🎂💖`, 
-
-`Una persona muy especial me contó que extraña mucho jugar contigo :'(\n  
-Y me contó de que eres muy fuerte, valiente y que siempre te la pasas estudiando 🌟💪`,
-
-`Por si no sabías, soy un poderoso mago. tambiéne estudio un montón.... 🧙‍♂️✨  
-Y estoy a punto de lanzar un hechizo especial para que tengas un cumpleaños mágico 🎁💫`
-
-
-`Mientras tanto, te dejo con esto... 🎁💫`
+"Hola señorita cumpleañera 🌸",
+"Eres fuerte, brillante y maravillosa ✨",
+"Soy un poderoso mago 🧙‍♂️",
+"Y ahora... activaré el hechizo supremo 🔮"
 ];
 
-// Iniciar regalo
 function iniciar(){
-  document.getElementById("heartBtn").style.display="none";
-  document.getElementById("contenido").style.display="block";
-  document.getElementById("musica").play();
-  escribirTexto(textos[0]);
+document.getElementById("heartBtn").style.display="none";
+document.getElementById("contenido").style.display="block";
+document.getElementById("musica").play();
+escribir(textos[0]);
 }
 
-// Siguiente texto
 function siguiente(){
-  paso++;
-  if(paso < textos.length){
-    document.getElementById("imagen").src="Imagen"+(paso+1)+".png";
-    escribirTexto(textos[paso]);
-    if(paso==2){
-      activarMagia();
-      cambiarMusica();
-    }
-  }else{
-    mostrarCartaFinal();
-  }
+paso++;
+if(paso<textos.length){
+document.getElementById("imagen").src="Imagen"+(paso+1)+".png";
+escribir(textos[paso]);
+if(paso==2){activarHechizo();}
+}else{
+mostrarCarta();
+}
 }
 
-// Texto progresivo
-function escribirTexto(texto){
-  let i=0;
-  let contenedor=document.getElementById("texto");
-  let boton=document.getElementById("btnSiguiente");
-  contenedor.innerHTML="";
-  contenedor.classList.remove("magia");
-  boton.style.display="none";
-
-  let intervalo=setInterval(function(){
-    contenedor.innerHTML += texto.charAt(i);
-    i++;
-    if(i >= texto.length){
-      clearInterval(intervalo);
-      boton.style.display = "inline-block";
-    }
-  },50);
+function escribir(t){
+let i=0;
+let cont=document.getElementById("texto");
+let btn=document.getElementById("btnSiguiente");
+cont.innerHTML="";
+btn.style.display="none";
+let inter=setInterval(()=>{
+cont.innerHTML+=t.charAt(i);
+i++;
+if(i>=t.length){
+clearInterval(inter);
+btn.style.display="inline-block";
+}
+},40);
 }
 
-// Efectos mágicos
-function activarMagia(){
-  document.getElementById("texto").classList.add("magia");
-  crearParticulas(30);
-  crearGlobos(10);
+function activarHechizo(){
+let circulo=document.getElementById("circulo");
+circulo.style.display="block";
+circulo.classList.add("girar");
+
+document.getElementById("musica").pause();
+document.getElementById("hechizoSonido").play();
+
+for(let i=0;i<25;i++){
+let p=document.createElement("div");
+p.className="particula";
+p.style.left="50%";
+p.style.top="50%";
+p.style.setProperty("--x",(Math.random()*300-150)+"px");
+p.style.setProperty("--y",(Math.random()*300-150)+"px");
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),1000);
 }
 
-// Crear partículas doradas
-function crearParticulas(cantidad){
-  const cont=document.getElementById("particulas");
-  for(let i=0;i<cantidad;i++){
-    let p=document.createElement("div");
-    p.classList.add("particula");
-    p.style.left=Math.random()*100+"%";
-    p.style.width=Math.random()*10+5+"px";
-    p.style.height=p.style.width;
-    p.style.animationDuration=(Math.random()*3+2)+"s";
-    cont.appendChild(p);
-    setTimeout(()=>{p.remove()},5000);
-  }
+setTimeout(()=>{
+circulo.style.display="none";
+},3000);
 }
 
-// Cambiar música
-function cambiarMusica(){
-  let musica=document.getElementById("musica");
-  musica.src="Fanfare1.mp3";
-  musica.play();
-}
-
-// Carta final
-function mostrarCartaFinal(){
-  document.getElementById("contenido").style.display="none";
-  document.getElementById("sobreFinal").style.display="block";
-}
-
-// Globos aleatorios
-function crearGlobos(cantidad){
-  const carta=document.getElementById("carta");
-  for(let i=0;i<cantidad;i++){
-    let g=document.createElement("div");
-    g.classList.add("globo");
-    g.style.left=Math.random()*90+'%';
-    g.style.setProperty('--x', (Math.random()*50-25)+'px');
-    g.style.animationDuration = (Math.random()*5+5)+'s';
-    carta.appendChild(g);
-    setTimeout(()=>{g.remove()},10000);
-  }
+function mostrarCarta(){
+document.getElementById("contenido").style.display="none";
+let sobre=document.getElementById("sobre");
+sobre.style.display="block";
+setTimeout(()=>sobre.classList.add("abrir"),500);
 }
 </script>
+
 </body>
 </html>
