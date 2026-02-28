@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,18 +6,18 @@
 <title>Feliz Cumpleaños 🎉</title>
 
 <style>
-/* ===== Estilos generales ===== */
 body{
   margin:0;
   padding:0;
   background: url("pantalla.jpg") no-repeat center center fixed;
   background-size: cover;
   font-family: 'Arial', sans-serif;
+  color:white;
   text-align:center;
   overflow-x:hidden;
 }
 
-/* ===== Corazón animado ===== */
+/* Corazón inicial animado */
 #heartBtn{
   position:relative;
   width:100px;
@@ -54,17 +53,17 @@ body{
   100%{transform:scale(1);}
 }
 
-/* ===== Contenedor principal ===== */
+/* Contenedor principal */
 #contenido{
   display:none;
   margin-top:20px;
-  padding:0 10px;
+  padding:0 5%;
 }
 
 #imagen{
-  width:80%;
-  max-width:300px;
-  margin-bottom:20px;
+  width:90%;
+  max-width:320px;
+  margin-bottom:15px;
   transition: transform 1s;
   border-radius:15px;
 }
@@ -77,7 +76,7 @@ body{
   margin:auto;
 }
 
-/* ===== Botón ===== */
+/* Botón siguiente */
 #btnSiguiente{
   padding:10px 20px;
   font-size:16px;
@@ -85,18 +84,18 @@ body{
   border-radius:12px;
   cursor:pointer;
   background: pink;
-  color: white;
+  color:white;
   box-shadow: 0 0 10px pink;
   transition: transform 0.2s;
   display:none;
-  margin-top:15px;
+  margin-top:10px;
 }
 
 #btnSiguiente:hover{
   transform: scale(1.1);
 }
 
-/* ===== Efectos mágicos ===== */
+/* Efectos mágicos */
 .magia{
   animation: brillo 1s infinite alternate;
 }
@@ -106,7 +105,7 @@ body{
   to{ text-shadow: 0 0 25px white;}
 }
 
-/* ===== Destellos y partículas ===== */
+/* Partículas doradas */
 #particulas{
   position:fixed;
   top:0;
@@ -133,13 +132,13 @@ body{
   100%{transform: translateY(100vh) translateX(30px);}
 }
 
-/* ===== Carta final con marco ===== */
+/* Carta final */
 #sobreFinal{
   display:none;
-  margin-top:30px;
+  margin-top:20px;
   animation: aparecer 2s forwards;
   position: relative;
-  padding:0 10px;
+  padding:0 5%;
 }
 
 @keyframes aparecer{
@@ -150,32 +149,33 @@ body{
 #carta{
   background: rgba(255,255,255,0.95);
   color: #333;
-  width: 100%;
-  max-width: 550px;
-  margin: 0 auto;
-  padding: 30px;
-  border-radius: 20px;
+  width:100%;
+  max-width:600px;
+  margin:0 auto;
+  padding:30px;
+  border-radius:20px;
   border: 4px dashed #ff69b4;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  font-family:'Arial', sans-serif;
 }
 
 /* Imágenes dentro de la carta */
 .imagenesCarta{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 15px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  margin-top:15px;
 }
 
 .imagenesCarta img{
   width:70px;
   height:70px;
   margin:5px;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  border-radius:10px;
+  box-shadow:0 0 8px rgba(0,0,0,0.3);
   transition: transform 0.3s;
 }
 
@@ -183,11 +183,11 @@ body{
   transform: scale(1.2) rotate(5deg);
 }
 
-/* Globos flotantes */
+/* Globos aleatorios */
 .globo{
-  position: absolute;
-  width: 40px;
-  height: 60px;
+  position:absolute;
+  width:40px;
+  height:60px;
   background: radial-gradient(circle at 30% 30%, #ff5f5f, #ff0000);
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   animation: flotar linear infinite;
@@ -195,11 +195,11 @@ body{
 
 @keyframes flotar{
   0%{transform: translateY(100vh) translateX(0);}
-  100%{transform: translateY(-100px) translateX(30px);}
+  100%{transform: translateY(-100px) translateX(var(--x,30px));}
 }
 
-/* ===== Ajustes para móviles ===== */
-@media (max-width:480px){
+/* Ajustes para pantallas pequeñas */
+@media(max-width:480px){
   #texto{
     font-size:16px;
   }
@@ -215,7 +215,7 @@ body{
     height:60px;
   }
   #imagen{
-    width:90%;
+    width:95%;
   }
 }
 </style>
@@ -238,7 +238,7 @@ body{
   <button id="btnSiguiente" onclick="siguiente()">Siguiente</button>
 </div>
 
-<!-- Carta final con marco y globos -->
+<!-- Carta final -->
 <div id="sobreFinal">
   <div id="carta">
     <h1>💌 Tienes una carta muy especial...</h1>
@@ -248,12 +248,6 @@ body{
       <img src="Imagen7.png" alt="Decoración 2">
       <img src="Imagen8.png" alt="Decoración 3">
     </div>
-    <!-- Globos -->
-    <div class="globo" style="left:5%; animation-duration: 8s;"></div>
-    <div class="globo" style="left:25%; animation-duration: 10s;"></div>
-    <div class="globo" style="left:50%; animation-duration: 9s;"></div>
-    <div class="globo" style="left:70%; animation-duration: 12s;"></div>
-    <div class="globo" style="left:90%; animation-duration: 11s;"></div>
   </div>
 </div>
 
@@ -321,6 +315,7 @@ function escribirTexto(texto){
 function activarMagia(){
   document.getElementById("texto").classList.add("magia");
   crearParticulas(30);
+  crearGlobos(10);
 }
 
 // Crear partículas doradas
@@ -345,10 +340,24 @@ function cambiarMusica(){
   musica.play();
 }
 
-// Mostrar carta final
+// Carta final
 function mostrarCartaFinal(){
   document.getElementById("contenido").style.display="none";
   document.getElementById("sobreFinal").style.display="block";
+}
+
+// Globos aleatorios
+function crearGlobos(cantidad){
+  const carta=document.getElementById("carta");
+  for(let i=0;i<cantidad;i++){
+    let g=document.createElement("div");
+    g.classList.add("globo");
+    g.style.left=Math.random()*90+'%';
+    g.style.setProperty('--x', (Math.random()*50-25)+'px');
+    g.style.animationDuration = (Math.random()*5+5)+'s';
+    carta.appendChild(g);
+    setTimeout(()=>{g.remove()},10000);
+  }
 }
 </script>
 </body>
